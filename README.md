@@ -11,20 +11,46 @@ python3 setup.py install
 ```
 Step 2: Run command - pip install .
 ```
-pip install -e .
+pip install .
 ```
 Step 3: Make sure the code is up to date and run the tests
 ```
 python3 -m unittest test.py
 ```
-Step 4: Create a python file and import the following at the top
+Step 4: Create a python file play_game.py and import the following at the top
 ```
-from montecarlosimulator import die, game, analyzer
-```
-Step 5: Create Dice
-Step 6: Play a game
-Syep 7: Analyze the game
+from montecarlosimulator.die import Die
+from montecarlosimulator.game import Game
+from montecarlosimulator.analyzer import Analyzer
 
+```
+Step 5: Create Dice - in this example there are 2 dice and changes of weights making certain faces way more likely to be rolled than others. The face 6 - is five times more likely to be rolled than other faces. The face 4 in the second die is 3 times more likely to be rolled than the others.
+```
+faces1 = np.array([1, 2, 3, 4, 5, 6])
+faces2= np.array([2, 4, 6, 8, 10, 12])
+die1 = Die(faces1)
+die2 = Die(faces2)
+
+die1.change_weight(6, 5.0)
+die2.change_weight(4, 3.0)
+```
+Step 6: Play a game and play it 5 times
+```
+game = Game([die1, die2])
+game.play(5)
+
+print(game.show())
+```
+Step 7: Analyze the game
+```
+analyzer = Analyzer(game)
+print(analyzer.jackpot())
+print(analyzer.face_counts_per_roll())
+print(analyzer.combination_counts())
+print(analyzer.permutation_counts())
+
+
+```
 
 API description: 
 Die Class:
