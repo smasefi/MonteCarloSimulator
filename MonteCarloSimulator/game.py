@@ -24,7 +24,7 @@ class Game:
 
         #TODO: checks list to make sure it contains Die objects
         self.dice = dice
-        self.game_results = None
+        self._game_results = None
 
     def play(self, num_rolls):
         '''
@@ -41,9 +41,9 @@ class Game:
             results[i] = [die.roll()[0] for _ in range(num_rolls)]
         # should be in wide format
         #TODO: Save results to a private data frame
-        self.game_results = pd.DataFrame(results) 
-        self.game_results.index.name = 'roll' # make sure the index is the roll number
-        self.game_results.unstack() # ensure that it is wide format
+        self._game_results = pd.DataFrame(results) 
+        self._game_results.index.name = 'roll' # make sure the index is the roll number
+        self._game_results.unstack() # ensure that it is wide format
 
     def show(self, format='wide'):
         '''
@@ -51,12 +51,12 @@ class Game:
         what it is passed as an argument. The default is wide.
 
         :param format: 'wide' or 'narrow'
-        :return: DataFrame of game results
+        :return: private DataFrame of game results
         '''
         if format == 'wide':
-            return self.game_results.copy()
+            return self._game_results.copy()
         elif format == 'narrow':
-            narrow = self.game_results.stack()
+            narrow = self._game_results.stack()
             narrow.index.names = ['roll', 'die']
             return narrow
         else:

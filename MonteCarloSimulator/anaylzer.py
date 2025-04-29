@@ -26,7 +26,7 @@ class Analyzer:
         if not isinstance(gameval, Game):
             return ValueError("gameval must be a Game object")
         self.gameval = gameval
-        self.game_results = gameval.show(format='wide')
+        self._game_results = gameval.show(format='wide')
 
     def jackpot(self):
         '''
@@ -34,8 +34,8 @@ class Analyzer:
         :return: integer for the number of jackpots
         '''
         jackpot_count = 0
-        for i in range(len(self.game_results)):
-            if len(set(self.game_results.iloc[i])) == 1: #sets check if the values are unique
+        for i in range(len(self._game_results)):
+            if len(set(self._game_results.iloc[i])) == 1: #sets check if the values are unique
                 jackpot_count += 1
         return jackpot_count    
     
@@ -45,7 +45,7 @@ class Analyzer:
         is rolled for each roll.
         :return: DataFrame of face counts
         '''
-        counts = self.game_results.apply(pd.Series.value_counts, axis=1) # go down df
+        counts = self._game_results.apply(pd.Series.value_counts, axis=1) # go down df
         # make sure this is formatted wide in testing
         return counts
     
@@ -60,7 +60,7 @@ class Analyzer:
         :return: DataFrame of combination counts
         '''
         counts = {}
-        for index, row in self.game_results.iterrows():
+        for index, row in self._game_results.iterrows():
             combination = tuple(sorted(row))
             if combination in counts:
                 counts[combination] += 1
@@ -80,7 +80,7 @@ class Analyzer:
         :return: DataFrame of permutation counts
         '''
         counts = {}
-        for index, row in self.game_results.iterrows():
+        for index, row in self._game_results.iterrows():
             permutations = tuple(row)
             if permutations in counts:
                 counts[permutations] += 1

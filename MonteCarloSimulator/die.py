@@ -15,8 +15,8 @@ class Die:
     def __init__(self, faces, weight=None):
         '''
         This method initializes the die object with a list of faces and an optional weight. It replicates
-        what a die would look like by taking in a list of integers or strings and an optional weight. The weught
-        would change the likelihood that a particular face is chosen.
+        what a die would look like by taking in a list of integers or strings and an optional weight. The weight
+        would change the likelihood that a particular face is chosen. Creates a private die data frame.
 
         :param faces: list of integers or strings
         :param weight: list of floats (optional)
@@ -37,7 +37,7 @@ class Die:
         # set weight to be an array of ones
         weight = [1.0]*len(faces)
         # save both face and weight to a private data frame
-        self.die = pd.DataFrame(
+        self._die = pd.DataFrame(
             {
                 'weight': weight
             }, index=faces
@@ -53,7 +53,7 @@ class Die:
         :return: None
         '''
         # check to see if face is in the die
-        if face not in self.die.index:
+        if face not in self._die.index:
             raise IndexError("face not in die")
         
         # Checks to see if the weight is a valid type, i.e. if it is numeric
@@ -68,7 +68,7 @@ class Die:
             raise ValueError("weight must be equal to 0 or positive")
         
         # TODO: need to write code to change the weight for alloted face
-        self.die.loc[face, 'weight'] = weight
+        self._die.loc[face, 'weight'] = weight
         # Updated the weight for the specified face
 
     def roll(self, n=1):
@@ -79,8 +79,9 @@ class Die:
         :return: list of outcomes
         '''
         # TODO: random sample with replacement from private data frame that applies weights
-        rolls = np.random.choice(self.die.index, size=n, p=self.die['weight']/self.die['weight'].sum())
+        rolls = np.random.choice(self._die.index, size=n, p=self._die['weight']/self._die['weight'].sum())
         # TODO: Returns list of outcomes
+        rolls = rolls.tolist()
         return rolls
 
     def currState(self):
@@ -88,8 +89,8 @@ class Die:
         This method returns the current state of the die, including the faces and their weights. It just returns a 
         copy in the event that the user wants to change the die state. The copy is a deep copy, so it won't affect the original.
         :param: None
-        :return: DataFrame of die state
+        :return: private DataFrame of die state
         '''
         #TODO: Returns the current state of the die
-        return self.die.copy()
+        return self._die.copy()
     
