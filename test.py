@@ -1,9 +1,9 @@
 import unittest
 import numpy as np
 import pandas as pd
-from MonteCarloSimulator.die import Die
-from MonteCarloSimulator.game import Game
-from MonteCarloSimulator.analyzer import Analyzer
+from montecarlosimulator.die import Die
+from montecarlosimulator.game import Game
+from montecarlosimulator.analyzer import Analyzer
 
 class TestDie(unittest.TestCase):
     def test_init_valid(self):
