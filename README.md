@@ -49,7 +49,10 @@ print(analyzer.face_counts_per_roll())
 print(analyzer.combination_counts())
 print(analyzer.permutation_counts())
 
-
+```
+Step 8: Run
+```
+python3 play_game.py
 ```
 
 API description: 
