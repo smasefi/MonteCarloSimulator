@@ -20,7 +20,8 @@ class Die:
 
         :param faces: list of integers or strings
         :param weight: list of floats (optional)
-        :return: None'''
+        :return: None
+        '''
         # check to make sure the type is a numpy array
         if not isinstance(faces, np.ndarray):
             raise TypeError("faces must be a numpy array")
@@ -47,7 +48,7 @@ class Die:
         '''
         This method allows the user to change the weight of a specific face on the die. Based on the 
         position of the face, a user of this game is able to change or alter the specific weights.
-        :param face: integer or string
+        :param face: integer or string of face value
         :param weight: float
         :return: None
         '''
@@ -74,7 +75,7 @@ class Die:
         '''
         This method simulates rolling the die a specified number of times and returns the results of the roll.
         The default number of rolls is one, so if nothing is passed in, it will roll once. 
-        :param n: integer
+        :param n: integer value for number of rolls
         :return: list of outcomes
         '''
         # TODO: random sample with replacement from private data frame that applies weights
