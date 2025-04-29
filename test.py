@@ -54,8 +54,8 @@ class TestGame(unittest.TestCase):
         die2 = Die(faces)
         self.game = Game([die1, die2])
         self.game.play(10)
-        self.assertEqual(len(self.game.game_results), 10)
-        self.assertEqual(len(self.game.game_results.columns), 2)
+        self.assertEqual(len(self.game._game_results), 10)
+        self.assertEqual(len(self.game._game_results.columns), 2)
 
     # test to ensure wide data frame
     def test_wide_frame(self):
@@ -83,8 +83,8 @@ class TestGame(unittest.TestCase):
         die2 = Die(faces)
         self.game = Game([die1, die2])
         self.game.play(10)  
-        self.assertIsInstance(self.game.game_results, pd.DataFrame)
-        self.assertEqual(self.game.game_results.shape, (10, 2))
+        self.assertIsInstance(self.game._game_results, pd.DataFrame)
+        self.assertEqual(self.game._game_results.shape, (10, 2))
 
     def test_show(self):
         faces = np.array([1, 2, 3, 4, 5, 6])
@@ -98,16 +98,16 @@ class TestGame(unittest.TestCase):
         self.assertIsInstance(narrow_df, pd.Series)
 
 class TestAnalyzer(unittest.TestCase):
-    def test_jackpot_with_jackpot(self):    
+    def test_jackpot(self):    
         faces = np.array([1, 2, 3, 4, 5, 6])
         die1 = Die(faces)
         die2 = Die(faces)
         game = Game([die1, die2])
-        game.game_results = pd.DataFrame({
+        game._game_results = pd.DataFrame({
         0: [1, 2, 3, 4],  # die0 results
         1: [1, 5, 3, 6]   # die1 results
         })
-        game.game_results.index.name = 'roll'
+        game._game_results.index.name = 'roll'
 
         analyzer = Analyzer(game)
 
@@ -139,12 +139,12 @@ class TestAnalyzer(unittest.TestCase):
         die2 = Die(faces)
         game = Game([die1, die2])
         
-        game.game_results = pd.DataFrame({
+        game._game_results = pd.DataFrame({
             # each index in a row is a roll
             0: [1, 3, 3, 4],  # this is die 0
             1: [1, 5, 3, 6],  # htis is diwe 1
         })
-        game.game_results.index.name = 'roll'
+        game._game_results.index.name = 'roll'
         analyzer = Analyzer(game)
 
         result = analyzer.face_counts_per_roll()
@@ -160,11 +160,11 @@ class TestAnalyzer(unittest.TestCase):
         die2 = Die(faces)
         game = Game([die1, die2])
         
-        game.game_results = pd.DataFrame({
+        game._game_results = pd.DataFrame({
             0: [1, 2, 1, 2],  
             1: [1, 5, 2, 1],  
         })
-        game.game_results.index.name = 'roll'
+        game._game_results.index.name = 'roll'
         analyzer = Analyzer(game)
 
         expected = pd.DataFrame(
@@ -184,11 +184,11 @@ class TestAnalyzer(unittest.TestCase):
         die2 = Die(faces)
         game = Game([die1, die2])
         
-        game.game_results = pd.DataFrame({
+        game._game_results = pd.DataFrame({
             0: [1, 2, 1, 2],  
             1: [1, 5, 2, 1],   
         })
-        game.game_results.index.name = 'roll'
+        game._game_results.index.name = 'roll'
         analyzer = Analyzer(game)
 
         expected = pd.DataFrame(
