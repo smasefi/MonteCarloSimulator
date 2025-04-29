@@ -1,5 +1,8 @@
 import numpy as np
 import pandas as pd
+from MonteCarloSimulator.die import Die
+from MonteCarloSimulator.game import Game
+from MonteCarloSimulator.analyzer import Analyzer
 
 class Die:
     '''

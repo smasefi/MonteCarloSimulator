@@ -5,7 +5,9 @@ Metadata:
 
 Synopsis:
 How to install the code:
-Step 1: Run setup.py - 
+Step 1: Run command - python setup.py instal
+Step 2: Run command - pip install .
+Step 3: 
 Show brief demo code of how the classes are used, i.e. code snippets showing how to install, import, and use the code to (1) create dice, (2) play a game, and (3) analyze a game. You can use preformatted blocks for the code.
 
 API description: 

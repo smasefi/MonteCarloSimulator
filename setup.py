@@ -8,6 +8,6 @@ setup(
     author='Samantha Asefi',
     author_email='sma9am@gmail.com',
     license='MIT',
-    packages=['MonteCarloSimulator'],
+    packages=['montecarlo'],
     install_requires=['numpy', 'pandas']
 )
